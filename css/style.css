@@ -58,6 +58,10 @@ main {
     padding-top: 3em;
 }
 
+#hero{
+    display: flex;
+}
+
 section {
     position: relative;
     min-height: 80vh;
@@ -92,6 +96,14 @@ section {
     transition: ease 0.3s all;
 }
 
+.active {
+    background: #333;
+}
+
+#link .active{
+    color: white;
+}
+
 /* Header Styles */
 .page__header {
     background: #fff;
@@ -99,6 +111,11 @@ section {
     top: 0;
     width: 100%;
     z-index: 5;
+}
+
+#icon-animation{
+    font-size: 100px;
+    margin-top: 15%;
 }
 
 #topBtn {
@@ -111,6 +128,8 @@ section {
     border: none;
     border-radius: 20%;
     font-weight: bold;
+    font-family: 'Dancing Script', cursive;
+    font-size: 20px;
 }
 
 #topBtn:hover {
