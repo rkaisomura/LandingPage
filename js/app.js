@@ -35,40 +35,32 @@
 
 // Build the navigation bar
 
-const textList = ['Rings', 'Earrings', 'Bracelets', 'Watches', 'Shop'];
+const listLinks = document.getElementsByTagName('section');   
 
-const listLinks = document.getElementsByTagName('section');        
 for (let i=0; i < listLinks.length; i++) {
     const unorderedList = document.querySelector('#navbar__list');
-    const listItem = document.createElement('li');
-    unorderedList.appendChild(listItem);
-    const anchorTag = document.createElement('a');
-    anchorTag.id = "link";
-    anchorTag.setAttribute('href', "#"+listLinks[i].id);
-    anchorTag.textContent = textList[i];
-    listItem.appendChild(anchorTag);
+    const listItem = document.createElement('li');  //<li> element
+    unorderedList.appendChild(listItem); // add 'li' in 'ul'
+
+    const anchorTag = document.createElement('a'); // <a> element
+    anchorTag.id = "link"+[i]; //for example: id="link0"
+    anchorTag.className = "link scrollTo"; //class = "link scrollTo"
+    anchorTag.setAttribute('href', "#"+listLinks[i].id); // id attribute from section
+    const textList = document.getElementsByTagName('section')[i].attributes[1].nodeValue; // data-nav attribute from section
+    anchorTag.textContent = textList; 
+    listItem.appendChild(anchorTag); // add 'a' in 'li'
 }
 
     
 
-// Add class 'active' to links when near of viewport
+//Add class 'active' to links when near of viewport. 
+// Set sections as active
 window.addEventListener('scroll', function(){
-    const navLinks = document.querySelectorAll('section');
-    const fromTop = window.scrollY;
-
-    navLinks.forEach(function() {
-        let section = document.querySelector();
-
-        if () {
-            link.classList.add('active');
-        } else {
-            link.classList.remove('active');
-        }
-    });
-});
+    const navLinks = document.querySelectorAll(".scrollTo"); // select all anchor with 'scrollTo' as a class
+    
+})
 
 
-// Scroll to anchor ID using scrollTO event
 
 
 /**
@@ -79,32 +71,31 @@ window.addEventListener('scroll', function(){
 
 // Build menu 
 
-// Scroll to section on link click
 
-// Set sections as active
+
 
 // Animation of the watch and diamond icons
 function iconanim(){
     let iconAnimation = document.getElementById('icon-animation');
-    iconAnimation.innerHTML = "&#xf017;";
+    iconAnimation.innerHTML = "&#xf017;"; //code of watch icon from font awesome
 
     setTimeout(function(){
-        iconAnimation.innerHTML = "&#xf219;";
-    }, 1000);
+        iconAnimation.innerHTML = "&#xf219;"; //code of diamond icon from font awesome
+    }, 1000); 
 }
 
-iconanim();
-setInterval(iconanim, 2000);
+iconanim(); // call the function in order to start the animation
+setInterval(iconanim, 2000); //repeat the animation after 2s
 
-// Top button appears when user scroll down more than 100px. Used tutorial from: https://www.w3schools.com/howto/howto_js_scroll_to_top.asp
+// Top button appears when user scroll down more than 500px. Used the tutorial as a reference: https://www.w3schools.com
 const topButton = document.getElementById("topBtn");
 
-window.onscroll = function() {
-    scrollPage()
-};
+window.onscroll = function(){
+    topbtnAppear()
+}
 
-function scrollPage(){
-    if (document.documentElement.scrollTop > 100){
+function topbtnAppear(){
+    if(window.pageYOffset >= 500){
         topButton.style.display = "block";
     } else {
         topButton.style.display = "none";
