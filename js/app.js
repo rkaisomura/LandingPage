@@ -44,8 +44,8 @@ for (let i=0; i < listLinks.length; i++) {
 
     const anchorTag = document.createElement('a'); // <a> element
     anchorTag.id = "link"+[i]; //for example: id="link0"
-    anchorTag.className = "link scrollTo"; //class = "link scrollTo"
-    anchorTag.setAttribute('href', "#"+listLinks[i].id); // id attribute from section
+    anchorTag.className = "link"; //class = "link"
+    anchorTag.setAttribute('href', "#" + listLinks[i].id); // id attribute from section
     const textList = document.getElementsByTagName('section')[i].attributes[1].nodeValue; // data-nav attribute from section
     anchorTag.textContent = textList; 
     listItem.appendChild(anchorTag); // add 'a' in 'li'
@@ -53,16 +53,33 @@ for (let i=0; i < listLinks.length; i++) {
 
     
 
-//Add class 'active' to links when near of viewport. 
-// Set sections as active
-window.addEventListener('scroll', function(){
-    const navLinks = document.querySelectorAll(".scrollTo"); // select all anchor with 'scrollTo' as a class
-    
+//Add class 'active' to links when they are clicked
+
+//Add class 'active' to links when they are clicked
+function myFunction(item, index) {
+   if (item.getAttribute("id") == "link0")  {
+    item.classList.add("active");
+   }
+}
+  
+
+// List of archors
+const ndArchors = document.querySelectorAll('a');
+
+// click event to archor list
+document.addEventListener('click', function(event){
+    // Search in all archor which element was clicked
+    for (var obj of ndArchors.values()) {
+        // If archor was clicked set as active
+        if (obj.getAttribute("id") == event.toElement.id) {
+            obj.classList.add("active");
+        } else {
+            // otherwise the element should be removed
+            obj.classList.remove("active");
+        }
+      }
 })
-
-
-
-
+    
 /**
  * End Main Functions
  * Begin Events
