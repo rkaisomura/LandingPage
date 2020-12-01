@@ -13,28 +13,7 @@
  * 
 */
 
-/**
- * Define Global Variables
- * 
-*/
-
-
-/**
- * End Global Variables
- * Start Helper Functions
- * 
-*/
-
-
-
-/**
- * End Helper Functions
- * Begin Main Functions
- * 
-*/
-
 // Build the navigation bar
-
 const listLinks = document.getElementsByTagName('section');   
 
 for (let i=0; i < listLinks.length; i++) {
@@ -51,71 +30,78 @@ for (let i=0; i < listLinks.length; i++) {
     listItem.appendChild(anchorTag); // add 'a' in 'li'
 }
 
-    
 
-//Add class 'active' to links when they are clicked
+//TODO: add class 'active' to links when they are clicked
 
-//Add class 'active' to links when they are clicked
-function myFunction(item, index) {
-   if (item.getAttribute("id") == "link0")  {
-    item.classList.add("active");
-   }
-}
-  
+const ndAnchors = document.querySelectorAll('a'); //List of anchors
 
-// List of archors
-const ndArchors = document.querySelectorAll('a');
-
-// click event to archor list
-document.addEventListener('click', function(event){
-    // Search in all archor which element was clicked
-    for (var obj of ndArchors.values()) {
-        // If archor was clicked set as active
+// @param event - the clicked event 
+document.addEventListener('click', (event) => {    // Click event to anchor list
+    // Search in all anchor which element was clicked
+    for (let obj of ndAnchors.values()) {
+        // If anchor was clicked set as active
         if (obj.getAttribute("id") == event.toElement.id) {
             obj.classList.add("active");
         } else {
-            // otherwise the element should be removed
+            // Otherwise the element should be removed
             obj.classList.remove("active");
         }
-      }
+    }
 })
-    
-/**
- * End Main Functions
- * Begin Events
- * 
-*/
-
-// Build menu 
-
-
 
 
 // Animation of the watch and diamond icons
-function iconanim(){
+function iconAnim(){
     let iconAnimation = document.getElementById('icon-animation');
     iconAnimation.innerHTML = "&#xf017;"; //code of watch icon from font awesome
 
-    setTimeout(function(){
+    setTimeout(() => {
         iconAnimation.innerHTML = "&#xf219;"; //code of diamond icon from font awesome
     }, 1000); 
 }
 
-iconanim(); // call the function in order to start the animation
-setInterval(iconanim, 2000); //repeat the animation after 2s
+iconAnim(); // call the function in order to start the animation
+setInterval(iconAnim, 2000); //repeat the animation after 2s
 
-// Top button appears when user scroll down more than 500px. Used the tutorial as a reference: https://www.w3schools.com
-const topButton = document.getElementById("topBtn");
 
+// Top button appears when user scroll down more than 350px and highlight the anchor according to the scrolling section
 window.onscroll = function(){
-    topbtnAppear()
-}
+    topbtnAndHighlight();
+};
 
-function topbtnAppear(){
-    if(window.pageYOffset >= 500){
-        topButton.style.display = "block";
-    } else {
+function topbtnAndHighlight(){
+    const topButton = document.getElementById("topBtn");
+    if (document.documentElement.scrollTop < 350){   // Main header area
         topButton.style.display = "none";
+        document.getElementById("link0").className = "link";
+    } else if((document.documentElement.scrollTop > 350) && (document.documentElement.scrollTop <= 680)){   // Rings section
+        topButton.style.display = "block";
+        document.getElementById("rings").className = "movement";
+        document.getElementById("link0").className = "link active";
+        document.getElementById("link1").className = "link";
+    } else if ((document.documentElement.scrollTop >= 900) && (document.documentElement.scrollTop <= 1360)) {  // Earrings section
+        topButton.style.display = "block";
+        document.getElementById("earrings").className = "movement";
+        document.getElementById("link0").className = "link";
+        document.getElementById("link1").className = "link active";
+        document.getElementById("link2").className = "link";
+    } else if((document.documentElement.scrollTop >= 1500) && (document.documentElement.scrollTop <= 2040)){ // Bracelets section
+        topButton.style.display = "block";
+        document.getElementById("bracelets").className = "movement";
+        document.getElementById("link2").className = "link active";
+        document.getElementById("link1").className = "link";
+        document.getElementById("link3").className = "link";
+    } else if((document.documentElement.scrollTop > 2200) && (document.documentElement.scrollTop <= 2720)){ // Watches section
+        topButton.style.display = "block";
+        document.getElementById("watches").className = "movement";
+        document.getElementById("link3").className = "link active";
+        document.getElementById("link2").className = "link";
+        document.getElementById("link4").className = "link";
+    } else if((document.documentElement.scrollTop > 2800) && (document.documentElement.scrollTop <= 3400)){ // Shop section
+        topButton.style.display = "block";
+        document.getElementById("shop").className = "movement";
+        document.getElementById("link4").className = "link active";
+        document.getElementById("link3").className = "link";
     }
 }
 
@@ -123,5 +109,3 @@ function topbtnAppear(){
 function topPage(){
     document.documentElement.scrollTop = 0;
 }
-
-
