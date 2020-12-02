@@ -36,39 +36,28 @@ for (let i=0; i < listLinks.length; i++) {
 
 const ndAnchors = document.querySelectorAll('a'); //List of anchors
 
-// @param event - the clicked event 
-document.addEventListener('click', (event) => {    // Click event to anchor list
-    // Search in all anchor which element was clicked
-    for (let obj of ndAnchors.values()) {
-        // If anchor was clicked set as active and scroll to the section
-        if (obj.getAttribute("id") == event.toElement.id) {
-            obj.classList.add("active");
-            const sectionElement = document.getElementById(obj.getAttribute("data-link"));
-            sectionElement.scrollIntoView({behavior:"smooth", block:"start"});
-        } else {
-            // Otherwise the element should be removed
-            obj.classList.remove("active");
+ndAnchors.forEach((item) => {
+    // @param event - the clicked event
+    item.addEventListener('click', (event) => {    // Click event to anchor list
+        event.preventDefault();
+        // Search in all anchor which element was clicked
+        for (let obj of ndAnchors.values()) {
+            // If anchor was clicked set as active and scroll to the section
+            if (obj.getAttribute("id") == event.toElement.id) {
+                obj.classList.add("active");
+                const sectionElement = document.getElementById(obj.getAttribute("data-link"));
+                sectionElement.scrollIntoView({behavior:"smooth", block:"start"});
+            } else {
+                // Otherwise the element should be removed
+                obj.classList.remove("active");
+            }
         }
-    }
+    })
 })
 
 
-// Animation of the watch and diamond icons
-function iconAnim(){
-    let iconAnimation = document.getElementById('icon-animation');
-    iconAnimation.innerHTML = "&#xf017;"; //code of watch icon from font awesome
-
-    setTimeout(() => {
-        iconAnimation.innerHTML = "&#xf219;"; //code of diamond icon from font awesome
-    }, 1000); 
-}
-
-iconAnim(); // call the function in order to start the animation
-setInterval(iconAnim, 2000); //repeat the animation after 2s
-
-
 // Top button appears when user scroll down more than 350px and highlight the anchor according to the scrolling section
-window.onscroll = function(){
+window.onscroll = () =>{
     topbtnAndHighlight();
 };
 
@@ -112,3 +101,16 @@ function topbtnAndHighlight(){
 function topPage(){
     document.documentElement.scrollTop = 0;
 }
+
+// Animation of the watch and diamond icons
+function iconAnim(){
+    let iconAnimation = document.getElementById('icon-animation');
+    iconAnimation.innerHTML = "&#xf017;"; //code of watch icon from font awesome
+
+    setTimeout(() => {
+        iconAnimation.innerHTML = "&#xf219;"; //code of diamond icon from font awesome
+    }, 1000); 
+}
+
+iconAnim(); // call the function in order to start the animation
+setInterval(iconAnim, 2000); //repeat the animation after 2s
