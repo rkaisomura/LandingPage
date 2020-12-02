@@ -24,13 +24,14 @@ for (let i=0; i < listLinks.length; i++) {
     const anchorTag = document.createElement('a'); // <a> element
     anchorTag.id = "link"+[i]; //for example: id="link0"
     anchorTag.className = "link"; //class = "link"
-    anchorTag.setAttribute('href', "#" + listLinks[i].id); // id attribute from section
+    anchorTag.setAttribute('href', "#"); 
+    anchorTag.setAttribute('data-link', listLinks[i].id); // attribute to data-link the section id
     const textList = document.getElementsByTagName('section')[i].attributes[1].nodeValue; // data-nav attribute from section
     anchorTag.textContent = textList; 
     listItem.appendChild(anchorTag); // add 'a' in 'li'
 }
 
-
+// Scroll the page to appropriate sections
 //TODO: add class 'active' to links when they are clicked
 
 const ndAnchors = document.querySelectorAll('a'); //List of anchors
@@ -39,9 +40,11 @@ const ndAnchors = document.querySelectorAll('a'); //List of anchors
 document.addEventListener('click', (event) => {    // Click event to anchor list
     // Search in all anchor which element was clicked
     for (let obj of ndAnchors.values()) {
-        // If anchor was clicked set as active
+        // If anchor was clicked set as active and scroll to the section
         if (obj.getAttribute("id") == event.toElement.id) {
             obj.classList.add("active");
+            const sectionElement = document.getElementById(obj.getAttribute("data-link"));
+            sectionElement.scrollIntoView({behavior:"smooth", block:"start"});
         } else {
             // Otherwise the element should be removed
             obj.classList.remove("active");
